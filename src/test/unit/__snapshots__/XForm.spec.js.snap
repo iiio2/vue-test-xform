@@ -1,0 +1,7 @@
+// Vitest Snapshot v1
+
+exports[`XForm > example works as expected (compare the snapshot) 1`] = `
+"<form>
+  <div><input name=\\"name\\" placeholder=\\"Name\\" type=\\"text\\"></div>
+</form>"
+`;
