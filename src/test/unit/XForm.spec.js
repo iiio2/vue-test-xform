@@ -181,4 +181,28 @@ describe("XForm", () => {
     expect(field).toBe("name");
   });
   ///// ###
+  it("when value of input is changed, it updates v-model", async () => {
+    const wrapper = mount(XForm, {
+      props: {
+        modelValue: {
+          name: "Alex",
+          dateOfBirth: "2023-01-06",
+          eyeColor: "blue",
+        },
+        fields: [
+          {
+            field: "name",
+            component: "input",
+            type: "text",
+            placeholder: "Name",
+          },
+        ],
+      },
+    });
+    await wrapper.vm.$nextTick();
+    const input = wrapper.findAll("input");
+    await input[0].setValue("new value");
+    let getValue = input[0].element.value;
+    expect(getValue).toBe("new value");
+  });
 });
