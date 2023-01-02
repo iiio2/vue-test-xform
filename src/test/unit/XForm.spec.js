@@ -110,4 +110,75 @@ describe("XForm", () => {
 
     expect(wrapper.html()).toMatchSnapshot();
   });
+  // #####
+  it("renders form same amount of child elements as length of fields", async () => {
+    const wrapper = mount(XForm, {
+      props: {
+        modelValue: {
+          name: "Alex",
+          dateOfBirth: "2023-01-06",
+          eyeColor: "blue",
+        },
+        fields: [
+          {
+            field: "name",
+            component: "input",
+            type: "text",
+            placeholder: "Name",
+          },
+        ],
+      },
+    });
+    await wrapper.vm.$nextTick();
+    const form = wrapper.findAll("form").length;
+    const field = wrapper.props().fields.length;
+    expect(form.length).toBe(field.length);
+  });
+  //// ######
+  it("field.component gets the name of the component (or tag) that should be rendered (for example it can be input, or select, or div, etc.).", async () => {
+    const wrapper = mount(XForm, {
+      props: {
+        modelValue: {
+          name: "Alex",
+          dateOfBirth: "2023-01-06",
+          eyeColor: "blue",
+        },
+        fields: [
+          {
+            field: "name",
+            component: "input",
+            type: "text",
+            placeholder: "Name",
+          },
+        ],
+      },
+    });
+    await wrapper.vm.$nextTick();
+    const getItem = wrapper.props().fields[0].component;
+    expect(getItem).toBe("input");
+  });
+  /// #####
+  it("field.field get the name of the key of the v-model object to edit", async () => {
+    const wrapper = mount(XForm, {
+      props: {
+        modelValue: {
+          name: "Alex",
+          dateOfBirth: "2023-01-06",
+          eyeColor: "blue",
+        },
+        fields: [
+          {
+            field: "name",
+            component: "input",
+            type: "text",
+            placeholder: "Name",
+          },
+        ],
+      },
+    });
+    await wrapper.vm.$nextTick();
+    const field = wrapper.props().fields[0].field;
+    expect(field).toBe("name");
+  });
+  ///// ###
 });
